@@ -6,6 +6,12 @@
   <title>Anurag | Cybersecurity Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+  <script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
 <body>
   <div id="particles-js"></div>
 
@@ -13,13 +19,17 @@
     <h1 class="tilt">Anurag Kumar Singh</h1>
     <p>Cybersecurity Enthusiast</p>
     <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#certificates">Certificates</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+  ☰
+</div>
+<ul class="nav-links">
+  <li><a href="#about">About</a></li>
+  <li><a href="#skills">Skills</a></li>
+  <li><a href="#projects">Projects</a></li>
+  <li><a href="#certificates">Certificates</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
+
     </nav>
   </header>
 
