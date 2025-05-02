@@ -1,99 +1,117 @@
-// Add smooth tilt/parallax effect with performance optimizations
-document.querySelectorAll('.tilt').forEach(card => {
-    let isTouching = false;
-    let animationFrame;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Anurag Kumar Singh - Cybersecurity Portfolio showcasing skills, projects, and certifications"/>
+  <title>Anurag | Cybersecurity Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div id="particles-js"></div>
 
-    const handleMove = (e) => {
-        if (isTouching) return;
-        
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const width = rect.width;
-        const height = rect.height;
-        
-        const moveX = (x - width / 2) / 10;
-        const moveY = (y - height / 2) / 10;
+  <header>
+    <h1 class="tilt">Anurag Kumar Singh</h1>
+    <p>Cybersecurity Enthusiast</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        // Use requestAnimationFrame for smooth animation
-        animationFrame = requestAnimationFrame(() => {
-            card.style.transform = `perspective(1000px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
-        });
-    };
+  <main>
+    <section id="about" class="card tilt">
+      <h2>About Me</h2>
+      <p>Hi, I'm Anurag — currently pursuing my B.Tech at ITM. I'm passionate about cybersecurity, ethical hacking, and smart technology development. I also maintain a strong focus on fitness.</p>
+    </section>
+    <section id="education" class="card tilt">
+        <h2>Education</h2>
+        <div>
+          <h3>B.Tech (2022 - 2026)</h3>
+          <p>Institute Of Technology & Management, GIDA</p>
+        </div>
+        <div>
+          <h3>Senior Secondary (XII), CBSE (2021)</h3>
+          <p>J.P. EDUCATION ACADEMY</p>
+          <p>Percentage: 72.20%</p>
+        </div>
+        <div>
+          <h3>Secondary (X), CBSE (2020)</h3>
+          <p>J.P. EDUCATION ACADEMY, Gorakhpur</p>
+          <p>Percentage: 82.00%</p>
+        </div>
+      </section>
+      
 
-    const handleLeave = () => {
-        isTouching = false;
-        cancelAnimationFrame(animationFrame);
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    };
+    <section id="skills" class="card tilt">
+        <h2>Skills</h2>
+        <ul>
+          <li>💻 Languages: C Programming, Python, JavaScript, HTML, CSS</li>
+          <li>🎬 Other Skills: Video Editing</li>
+          <li>🔐 Cybersecurity: IAM, Ethical Hacking, Linux</li>
+          <li>🛠️ Tools: MySQL, Git, Burp Suite, Postman</li>
+        </ul>
+      </section>      
 
-    // Mouse events
-    card.addEventListener('mousemove', handleMove);
-    card.addEventListener('mouseleave', handleLeave);
+    <section id="projects" class="card tilt">
+      <h2>Projects</h2>
+      <div class="project">
+        <h3>IAM Implementation at TCS</h3>
+        <p>Worked on enterprise IAM development including identity provisioning, role-based access control, and integrating security tools for clients under TCS cybersecurity consulting.</p>
+      </div>
+    </section>
 
-    // Touch events
-    card.addEventListener('touchstart', () => { isTouching = true; });
-    card.addEventListener('touchmove', handleMove);
-    card.addEventListener('touchend', handleLeave);
+    <section id="certifications" class="card tilt">
+        <h2>Certifications & Trainings</h2>
+        <div>
+          <h3>Python - GeeksforGeeks (Aug 2024 - Nov 2024)</h3>
+          <p>Virtual Course</p>
+        </div>
+        <div>
+            <h3>IAM Certification - TCS Forage </h3>
+            <p>Online Course</p>
+          </div>
+      </section>
+      
 
-    // Cleanup on unmount
-    return () => {
-        card.removeEventListener('mousemove', handleMove);
-        card.removeEventListener('mouseleave', handleLeave);
-        card.removeEventListener('touchstart', () => { isTouching = true; });
-        card.removeEventListener('touchmove', handleMove);
-        card.removeEventListener('touchend', handleLeave);
-        cancelAnimationFrame(animationFrame);
-    };
-});
+    <section id="contact" class="card tilt">
+        <h2>Contact & Connect</h2>
+        <div class="social-icons full">
+          <a href="mailto:anuragsingh79066@gmail.com" target="_blank" title="Email">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+          </a>
+          <a href="https://github.com/anurags-007" target="_blank" title="GitHub">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+          </a>
+          <a href="https://www.linkedin.com/in/anurag-singh-5a0993267/" target="_blank" title="LinkedIn">
+            <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn">
+          </a>
+          <a href="https://wa.me/qr/YR3ACB3EQYMSP1" target="_blank" title="WhatsApp">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+          </a>
+          <a href="https://youtube.com/@anurag_vlogs666?si=Sm3MDKeozgrSUSc7" target="_blank" title="YouTube">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+          </a>
+          <a href="https://www.instagram.com/_.anurag666/profilecard/?igsh=cTFmODNzeG82M3lv" target="_blank" title="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+          </a>
+        </div>
+      </section>
+      
+  </main>
 
-// Enhanced cursor toggle with performance optimizations
-let cursorState = 0;
-let cursorTimeout;
+  <footer>
+    <p>© 2025 Anurag. All rights reserved.</p>
+  </footer>
 
-const updateCursor = () => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-        <text x="0" y="15" font-size="15" fill="#00FF00">${cursorState}</text>
-    </svg>`;
-    
-    document.body.style.cursor = `url('data:image/svg+xml,${encodeURIComponent(svg)}') 10 10, auto`;
-};
-
-// Debounced click handler
-const handleClick = () => {
-    clearTimeout(cursorTimeout);
-    cursorState = cursorState === 0 ? 1 : 0;
-    updateCursor();
-    
-    // Reset cursor after 5 seconds of inactivity
-    cursorTimeout = setTimeout(() => {
-        document.body.style.cursor = 'auto';
-    }, 5000);
-};
-
-document.body.addEventListener('click', handleClick);
-
-// Cleanup function
-const cleanup = () => {
-    document.body.removeEventListener('click', handleClick);
-    clearTimeout(cursorTimeout);
-    document.body.style.cursor = 'auto';
-};
-
-// Add cleanup on page unload
-window.addEventListener('beforeunload', cleanup);
-
-// Add smooth scroll behavior
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-  
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="particles-config.js"></script>
+</body>
+</html>
