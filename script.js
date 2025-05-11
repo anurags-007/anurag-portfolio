@@ -47,42 +47,6 @@ document.querySelectorAll('.tilt').forEach(card => {
     };
 });
 
-// Enhanced cursor toggle with performance optimizations
-let cursorState = 0;
-let cursorTimeout;
-
-const updateCursor = () => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-        <text x="0" y="15" font-size="15" fill="#00FF00">${cursorState}</text>
-    </svg>`;
-    
-    document.body.style.cursor = `url('data:image/svg+xml,${encodeURIComponent(svg)}') 10 10, auto`;
-};
-
-// Debounced click handler
-const handleClick = () => {
-    clearTimeout(cursorTimeout);
-    cursorState = cursorState === 0 ? 1 : 0;
-    updateCursor();
-    
-    // Reset cursor after 5 seconds of inactivity
-    cursorTimeout = setTimeout(() => {
-        document.body.style.cursor = 'auto';
-    }, 5000);
-};
-
-document.body.addEventListener('click', handleClick);
-
-// Cleanup function
-const cleanup = () => {
-    document.body.removeEventListener('click', handleClick);
-    clearTimeout(cursorTimeout);
-    document.body.style.cursor = 'auto';
-};
-
-// Add cleanup on page unload
-window.addEventListener('beforeunload', cleanup);
-
 // Add smooth scroll behavior
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -96,4 +60,65 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Lightbox functionality
+let currentImageIndex = 0;
+const galleryImages = document.querySelectorAll('.gallery-item img');
+
+function openLightbox(img) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  currentImageIndex = Array.from(galleryImages).indexOf(img);
   
+  lightboxImg.src = img.src;
+  lightbox.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+function navigateLightbox(direction) {
+  event.stopPropagation(); // Prevent lightbox from closing
+  currentImageIndex = (currentImageIndex + direction + galleryImages.length) % galleryImages.length;
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = galleryImages[currentImageIndex].src;
+}
+
+// Gallery scroll functionality
+function scrollGallery(direction) {
+  const gallery = document.querySelector('.gallery-grid');
+  const scrollAmount = 320; // Width of item + gap
+  
+  if (direction === 'left') {
+    gallery.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth'
+    });
+  } else {
+    gallery.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Close lightbox with Escape key and navigate with arrow keys
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeLightbox();
+  } else if (event.key === 'ArrowLeft') {
+    navigateLightbox(-1);
+  } else if (event.key === 'ArrowRight') {
+    navigateLightbox(1);
+  }
+});
+
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', function() {
+  document.body.classList.toggle('light-mode');
+  themeToggle.setAttribute('aria-pressed', document.body.classList.contains('light-mode'));
+});
