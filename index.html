@@ -4,40 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Anurag Kumar Singh - Portfolio showcasing skills, projects, and certifications"/>
-  <title>Anurag Singh | Portfolio</title>
+  <meta name="keywords" content="Anurag Kumar Singh, Cybersecurity, Portfolio, Ethical Hacking, ITM, Projects, Certifications">
+  <meta name="author" content="Anurag Kumar Singh">
+  <title>Anurag | Cybersecurity Portfolio</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+  
+  </style>
 </head>
 <body>
+  <button class="toggle-theme" id="theme-toggle" aria-label="Toggle light/dark mode">Toggle Theme</button>
   <div id="particles-js"></div>
 
   <header>
-    <h1 class="tilt">Anurag Kumar Singh</h1>
+    <h1>Anurag Kumar Singh</h1>
     <p>Cybersecurity Enthusiast</p>
-    <nav>
+    <nav aria-label="Main navigation">
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#certifications">Certificates</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section id="about" class="card tilt">
+    <section id="about" class="card pulse-card">
       <h2>About Me</h2>
       <p>Hi, I'm Anurag — currently pursuing my B.Tech at ITM. I'm passionate about cybersecurity, ethical hacking, and smart technology development. I also maintain a strong focus on fitness.</p>
     </section>
-    <section id="education" class="card tilt">
+    <section id="education" class="card pulse-card">
         <h2>Education</h2>
         <div>
           <h3>B.Tech (2022 - 2026)</h3>
           <p>Institute Of Technology & Management, GIDA</p>
         </div>
         <div>
-          <h3>Senior Secondary (XII), CBSE (2022)</h3>
+          <h3>Senior Secondary (XII), CBSE (2021)</h3>
           <p>J.P. EDUCATION ACADEMY</p>
           <p>Percentage: 72.20%</p>
         </div>
@@ -46,20 +52,18 @@
           <p>J.P. EDUCATION ACADEMY, Gorakhpur</p>
           <p>Percentage: 82.00%</p>
         </div>
-      </section>
-      
+      </section>      
 
-    <section id="skills" class="card tilt">
+    <section id="skills" class="card pulse-card">
         <h2>Skills</h2>
         <ul>
           <li>💻 Languages: C Programming, Python, JavaScript, HTML, CSS</li>
           <li>🎬 Other Skills: Video Editing</li>
           <li>🔐 Cybersecurity: IAM, Ethical Hacking, Linux</li>
-          <li>🛠️ Tools: MySQL, Git, Burp Suite, Postman</li>
         </ul>
       </section>      
 
-    <section id="projects" class="card tilt">
+    <section id="projects" class="card pulse-card">
       <h2>Projects</h2>
       <div class="project">
         <h3>IAM Implementation at TCS</h3>
@@ -67,7 +71,7 @@
       </div>
     </section>
 
-    <section id="certifications" class="card tilt">
+    <section id="certifications" class="card pulse-card">
         <h2>Certifications & Trainings</h2>
         <div>
           <h3>Python - GeeksforGeeks (Aug 2024 - Nov 2024)</h3>
@@ -77,29 +81,58 @@
             <h3>IAM Certification - TCS Forage </h3>
             <p>Online Course</p>
           </div>
-      </section>
-      
+      </section>      
 
-    <section id="contact" class="card tilt">
+    <section id="gallery" class="card pulse-card">
+      <h2>Gallery</h2>
+      <div class="gallery-container">
+        <button class="scroll-button scroll-left" onclick="scrollGallery('left')" aria-label="Scroll left">&#10094;</button>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="C:\Users\anura\OneDrive\Desktop\portfolio\images\Forage certificate_page-0001.jpg" alt="Certificate" loading="lazy" onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Work Experience</h3>
+              <p>TCS IAM Implementation</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/skills-demo.jpg" alt="Certificate" loading="lazy" onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Network Fundamentals</p>
+            </div>
+          </div>
+        </div>
+        <button class="scroll-button scroll-right" onclick="scrollGallery('right')" aria-label="Scroll right">&#10095;</button>
+      </div>
+    </section>
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <span class="close-lightbox">&times;</span>
+      <img id="lightbox-img" src="" alt="Lightbox image">
+      <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">&#10094;</button>
+      <button class="lightbox-nav next" onclick="navigateLightbox(1)">&#10095;</button>
+    </div>
+
+    <section id="contact" class="card pulse-card">
         <h2>Contact & Connect</h2>
         <div class="social-icons full">
           <a href="mailto:anuragsingh79066@gmail.com" target="_blank" title="Email">
-            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email icon">
           </a>
           <a href="https://github.com/anurags-007" target="_blank" title="GitHub">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub icon" width="32" height="32">
           </a>
           <a href="https://www.linkedin.com/in/anurag-singh-5a0993267/" target="_blank" title="LinkedIn">
-            <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn">
+            <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn icon">
           </a>
           <a href="https://wa.me/qr/YR3ACB3EQYMSP1" target="_blank" title="WhatsApp">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp icon">
           </a>
           <a href="https://youtube.com/@anurag_vlogs666?si=Sm3MDKeozgrSUSc7" target="_blank" title="YouTube">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube icon">
           </a>
           <a href="https://www.instagram.com/_.anurag666/profilecard/?igsh=cTFmODNzeG82M3lv" target="_blank" title="Instagram">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram icon">
           </a>
         </div>
       </section>
@@ -113,5 +146,6 @@
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>
+  
 </body>
 </html>
