@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Anurag Kumar Singh - Portfolio showcasing skills, projects, and certifications" />
+  <meta name="keywords"
+    content="Anurag Kumar Singh, Cybersecurity, Portfolio, Ethical Hacking, ITM, Projects, Certifications">
+  <meta name="author" content="Anurag Kumar Singh">
+  <title>Anurag Singh | Portfolio </title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Futuristic Theme Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Marvel:wght@400;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+  <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+
+<body>
+  <div id="boot-overlay">
+    <div class="boot-content">
+      <div class="boot-text">INITIALIZING SYSTEM PROTOCOL...</div>
+      <div class="boot-bar">
+        <div class="boot-progress"></div>
+      </div>
+      <div class="boot-log">
+        <p>> CHECKING SYSTEMS...</p>
+        <p>> LOADING ASSETS...</p>
+        <p>> ESTABLISHING SECURE CONNECTION...</p>
+        <p>> ACCESS GRANTED.</p>
+      </div>
+    </div>
+  </div>
+  <section class="hero">
+    <header class="main-header">
+      <nav aria-label="Main navigation" class="main-nav">
+        <ul class="nav-list">
+          <li class="about-link"><a href="#about">About</a></li>
+          <li class="skills-link"><a href="#skills">Skills</a></li>
+          <li class="projects-link"><a href="#projects">Projects</a></li>
+          <li class="certifications-link"><a href="#certifications">Certificates</a></li>
+          <li class="contact-link"><a href="#contact">Contact</a></li>
+          <li>
+            <button class="toggle-theme" id="theme-toggle" aria-label="Toggle light/dark mode">
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
+          </li>
+        </ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </nav>
+    </header>
+    <div class="hero-content">
+      <div class="arc-reactor-container">
+        <div class="reactor-ring ring-1"></div>
+        <div class="reactor-ring ring-2"></div>
+        <div class="reactor-ring ring-3"></div>
+        <img src="images/WhatsApp Image 2024-03-22 at 10.09.02_2570ea15.jpg" alt="Profile photo of Anurag Kumar Singh"
+          class="hero-avatar" loading="lazy">
+      </div>
+      <h1>Anurag Kumar Singh</h1>
+      <p class="hero-title"> <span id="typed-text"
+          data-typed='["Cybersecurity Enthusiast", "Full-Stack Developer", "Ethical Hacker", "Tech Innovator", "Problem Solver"]'></span>
+      </p>
+      <p class="hero-intro">Passionate about cybersecurity, ethical hacking, and building smart solutions. Welcome to my
+        portfolio!</p>
+      <a href="resume/Anurag_resume.pdf" class="resume-btn" download>Download Resume</a>
+    </div>
+  </section>
+
+  <div id="particles-js"></div>
+
+  <main>
+    <section id="about" class="card pulse-card">
+      <h2>About Me</h2>
+      <p>My name is Anurag. I am driven and passionate about safeguarding people’s security, including their financial
+        well being.
+        I enjoy working with technology and analyzing and solving complex problems.</p>
+    </section>
+    <section id="education" class="card pulse-card">
+      <h2>Education</h2>
+      <div>
+        <h3>B.Tech (2022 - 2025)</h3>
+        <p>Institute Of Technology & Management, GIDA</p>
+      </div>
+    </section>
+
+    <section id="skills" class="card pulse-card">
+      <h2>Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>💻 Programming Languages</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">C Programming</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>🔐 Cybersecurity</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">IAM</span>
+            <span class="skill-tag">Ethical Hacking</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Security Tools</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>🎬 Additional Skills</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Video Editing</span>
+            <span class="skill-tag">Web Development</span>
+            <span class="skill-tag">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="card pulse-card project-card">
+      <h2>Projects</h2>
+      <div class="project">
+        <h3>🔐 IAM Implementation at TCS</h3>
+        <p>Worked on enterprise IAM development including identity provisioning, role-based access control, and
+          integrating security tools for clients under TCS cybersecurity consulting.</p>
+        <div class="project-extra">Tech stack: Python, IAM, Security Tools</div>
+        <div class="project-links">
+          <a href="#" class="project-link">View Details</a>
+        </div>
+      </div>
+      <div class="project">
+        <h3>🌐 Portfolio Website</h3>
+        <p>Responsive portfolio website with modern design, dark/light theme toggle, interactive gallery, and smooth
+          animations. Built with HTML5, CSS3, and JavaScript.</p>
+        <div class="project-extra">Tech stack: HTML5, CSS3, JavaScript, Responsive Design</div>
+        <div class="project-links">
+          <a href="#" class="project-link">Live Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="card pulse-card">
+      <h2>Certifications & Trainings</h2>
+      <div>
+        <h3>TCS Forage – IAM Virtual Internship Certificate</h3>
+      </div>
+      <div>
+        <h3>Introduction To Cybersecurity (CISCO)</h3>
+      </div>
+      <div>
+        <h3>Python Essentials 1</h3>
+      </div>
+      <div>
+        <h3>Python Essentials 2</h3>
+      </div>
+    </section>
+
+    <section id="gallery" class="card pulse-card">
+      <h2>Gallery</h2>
+      <div class="gallery-container">
+        <button class="scroll-button scroll-left" onclick="scrollGallery('left')"
+          aria-label="Scroll left">&#10094;</button>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="images/Forage certificate_page-0001.jpg" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Work Experience</h3>
+              <p>TCS IAM Implementation</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/skills-demo.jpg" alt="Certificate" loading="lazy" onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Network Fundamentals</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Screenshot 2025-01-02 185336.png" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Web development</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Screenshot 2025-06-02 054619.png" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Deloitte Technology Job Simulation</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Screenshot 2025-06-02 054708.png" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Deloitte Cyber Job Simulation</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/internship_certificate.jpg" alt="Certificate" loading="lazy" onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Internship Certificate</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Screenshot 2025-07-22 162340.png" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Build Free Website With WordPress</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/CYBERSECURITY.jpg" alt="Certificate" loading="lazy" onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Cybersecurity</h3>
+              <p>Expertise</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Python_Essentials_1_certificate.jpg" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Python Essentials 1</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Python_Essentials_2_certificate.jpg" alt="Certificate" loading="lazy"
+              onclick="openLightbox(this)">
+            <div class="gallery-caption">
+              <h3>Certifications</h3>
+              <p>Python Essentials 2</p>
+            </div>
+          </div>
+          <button class="scroll-button scroll-right" onclick="scrollGallery('right')"
+            aria-label="Scroll right">&#10095;</button>
+        </div>
+    </section>
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <span class="close-lightbox">&times;</span>
+      <img id="lightbox-img" src="" alt="Lightbox image">
+      <button class="lightbox-nav prev" onclick="navigateLightbox(-1, event)">&#10094;</button>
+      <button class="lightbox-nav next" onclick="navigateLightbox(1, event)">&#10095;</button>
+    </div>
+
+    <section id="contact" class="card pulse-card">
+      <h2>Contact & Connect</h2>
+      <div class="contact-container">
+        <div class="social-icons full">
+          <a href="mailto:anuragsingh79066@gmail.com" target="_blank" title="Email">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email icon">
+          </a>
+          <a href="https://github.com/anurags-007" target="_blank" title="GitHub">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub icon" width="32" height="32">
+          </a>
+          <a href="https://www.linkedin.com/in/anurag-singh-5a0993267/" target="_blank" title="LinkedIn">
+            <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn icon">
+          </a>
+          <a href="https://youtube.com/@anurag_vlogs666?si=Sm3MDKeozgrSUSc7" target="_blank" title="YouTube">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube icon">
+          </a>
+          <a href="https://www.instagram.com/_.anurag666/profilecard/?igsh=cTFmODNzeG82M3lv" target="_blank"
+            title="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram icon">
+          </a>
+        </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Anurag. All rights reserved.</p>
+  </footer>
+
+  <div id="visitor-hud" class="visitor-hud">
+    <div class="hud-header">VISITOR_INTEL_SCAN</div>
+    <div class="hud-content">
+      <p id="hud-ip">IP: SCANNING...</p>
+      <p id="hud-loc">LOC: SCANNING...</p>
+      <p id="hud-isp">ISP: SCANNING...</p>
+      <p id="hud-os">SYS: SCANNING...</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="particles-config.js"></script>
+
+  <script type="py">
+    import asyncio
+    import json
+    from js import document, navigator
+    from pyodide.http import pyfetch
+
+    async def fetch_intel():
+        hud_ip = document.getElementById('hud-ip')
+        hud_loc = document.getElementById('hud-loc')
+        hud_isp = document.getElementById('hud-isp')
+        hud_os = document.getElementById('hud-os')
+        
+        if not hud_ip:
+            return
+
+        # System Info
+        platform = navigator.platform
+        user_agent = navigator.userAgent
+        os_name = 'Unknown OS'
+        if 'Win' in user_agent: os_name = 'Windows'
+        elif 'Mac' in user_agent: os_name = 'MacOS'
+        elif 'Linux' in user_agent: os_name = 'Linux'
+        elif 'Android' in user_agent: os_name = 'Android'
+        elif 'iOS' in user_agent: os_name = 'iOS'
+        
+        hud_os.textContent = f"SYS: {os_name} / {platform}"
+
+        # IP Data
+        try:
+            # Using ipwho.is which is more CORS friendly for client-side requests
+            response = await pyfetch("https://ipwho.is/")
+            if response.ok:
+                data = await response.json()
+                if data.get('success'):
+                    hud_ip.textContent = f"IP: {data.get('ip')}"
+                    hud_loc.textContent = f"LOC: {data.get('city')}, {data.get('country_code')}"
+                    hud_isp.textContent = f"ISP: {data.get('connection', {}).get('isp')}"
+                else:
+                    hud_ip.textContent = "IP: [LOOKUP FAILED]"
+            else:
+                hud_ip.textContent = f"IP: [HTTP {response.status}]"
+        except Exception as e:
+            # Show actual error for debugging if needed, or fallback
+            hud_ip.textContent = "IP: [CONNECTION ERROR]"
+            print(f"IP Fetch Error: {e}")
+
+    # Run the async function
+    asyncio.ensure_future(fetch_intel())
+  </script>
+</body>
+
+</html>
+```
