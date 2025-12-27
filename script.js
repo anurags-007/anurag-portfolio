@@ -307,10 +307,10 @@ document.querySelectorAll('.project').forEach(project => {
 
 // Add loading animation to images
 // Add loading animation to images
+// Loading animation removed to prevent conflict with lightbox
 document.querySelectorAll('img').forEach(img => {
   const onImageLoad = () => {
     img.style.opacity = '1';
-    img.style.transform = 'scale(1)';
     img.classList.add('loaded');
   };
 
@@ -318,7 +318,6 @@ document.querySelectorAll('img').forEach(img => {
     onImageLoad();
   } else {
     img.style.opacity = '0';
-    img.style.transform = 'scale(0.9)';
     img.addEventListener('load', onImageLoad);
     img.addEventListener('error', function () {
       this.style.opacity = '0.5';
@@ -419,4 +418,64 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Initialize after boot
+
+
+// Visitor Intelligence System
+async function fetchVisitorIntel() {
+  const hudParams = {
+    ip: document.getElementById('hud-ip'),
+    loc: document.getElementById('hud-loc'),
+    isp: document.getElementById('hud-isp'),
+    os: document.getElementById('hud-os'),
+    container: document.getElementById('visitor-hud')
+  };
+
+  if (!hudParams.ip) return;
+
+  // 1. Detect System Info
+  const platform = navigator.platform;
+  const userAgent = navigator.userAgent;
+  let osName = 'Unknown OS';
+  if (userAgent.indexOf('Win') !== -1) osName = 'Windows';
+  else if (userAgent.indexOf('Mac') !== -1) osName = 'MacOS';
+  else if (userAgent.indexOf('Linux') !== -1) osName = 'Linux';
+  else if (userAgent.indexOf('Android') !== -1) osName = 'Android';
+  else if (userAgent.indexOf('like Mac') !== -1) osName = 'iOS';
+
+  hudParams.os.textContent = `SYS: ${osName} / ${platform}`;
+
+  // 2. Fetch Network Intel
+  try {
+    const response = await fetch('https://ipwho.is/');
+    const data = await response.json();
+
+    if (data.success) {
+      // Typing effect for data
+      typeText(hudParams.ip, `IP:  ${data.ip}`);
+      setTimeout(() => typeText(hudParams.loc, `LOC: ${data.city}, ${data.country_code}`), 500);
+      setTimeout(() => typeText(hudParams.isp, `ISP: ${data.connection.isp}`), 1000);
+
+      // Add success state to HUD
+      hudParams.container.style.borderColor = 'var(--text-secondary)';
+    } else {
+      hudParams.ip.textContent = 'IP:  [TRACKING DISABLED]';
+    }
+  } catch (error) {
+    console.error('Intel failure:', error);
+    hudParams.ip.textContent = 'IP:  [CONNECTION LOST]';
+  }
+}
+
+// Typing helper for HUD
+function typeText(element, text, index = 0) {
+  if (index === 0) element.textContent = '';
+  if (index < text.length) {
+    element.textContent += text.charAt(index);
+    setTimeout(() => typeText(element, text, index + 1), 30);
+  }
+}
+
+// Initialize systems
+document.addEventListener('DOMContentLoaded', () => {
+  fetchVisitorIntel();
+});

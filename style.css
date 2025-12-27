@@ -730,6 +730,7 @@ nav a:hover::before {
   transform: translate(-50%, -50%);
   border: 2px solid var(--accent-tertiary);
   box-shadow: 0 0 50px var(--shadow-blue);
+  object-fit: contain;
 }
 
 .close-lightbox {
@@ -823,34 +824,93 @@ footer {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 250px;
-  background: rgba(10, 10, 18, 0.9);
+  width: 280px;
+  background: rgba(10, 10, 18, 0.95);
   border: 1px solid var(--accent-tertiary);
   color: var(--accent-tertiary);
   font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   z-index: 1000;
-  clip-path: polygon(10px 0, 100% 0,
-      100% calc(100% - 10px), calc(100% - 10px) 100%,
-      0 100%, 0 10px);
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-  backdrop-filter: blur(5px);
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.visitor-hud::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-tertiary);
+  box-shadow: 0 0 10px var(--accent-tertiary);
+  animation: hud-scan 3s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes hud-scan {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
 .hud-header {
-  background: rgba(0, 243, 255, 0.1);
-  padding: 5px 10px;
+  background: rgba(0, 243, 255, 0.15);
+  padding: 8px 12px;
   font-weight: bold;
+  font-size: 0.75rem;
   border-bottom: 1px solid var(--accent-tertiary);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hud-header::after {
+  content: '● REC';
+  color: #ff0033;
+  animation: blink 1s infinite;
+  font-size: 0.7rem;
 }
 
 .hud-content {
-  padding: 10px;
+  padding: 12px;
+  line-height: 1.6;
 }
 
 .hud-content p {
-  margin: 5px 0;
-  opacity: 0.8;
-  text-shadow: 0 0 5px var(--accent-tertiary);
+  margin: 4px 0;
+  opacity: 0.9;
+  text-shadow: 0 0 2px rgba(0, 243, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Mobile responsive - keeping it hidden on very small screens or adjusting */
+@media (max-width: 480px) {
+  .visitor-hud {
+    bottom: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    transform: scale(0.9);
+    transform-origin: bottom right;
+  }
 }

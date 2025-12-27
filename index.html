@@ -22,8 +22,7 @@
       scroll-behavior: smooth;
     }
   </style>
-  <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-  <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
 </head>
 
 <body>
@@ -267,9 +266,10 @@
               <p>Python Essentials 2</p>
             </div>
           </div>
-          <button class="scroll-button scroll-right" onclick="scrollGallery('right')"
-            aria-label="Scroll right">&#10095;</button>
         </div>
+        <button class="scroll-button scroll-right" onclick="scrollGallery('right')"
+          aria-label="Scroll right">&#10095;</button>
+      </div>
     </section>
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
       <span class="close-lightbox">&times;</span>
@@ -320,56 +320,7 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>
 
-  <script type="py">
-    import asyncio
-    import json
-    from js import document, navigator
-    from pyodide.http import pyfetch
 
-    async def fetch_intel():
-        hud_ip = document.getElementById('hud-ip')
-        hud_loc = document.getElementById('hud-loc')
-        hud_isp = document.getElementById('hud-isp')
-        hud_os = document.getElementById('hud-os')
-        
-        if not hud_ip:
-            return
-
-        # System Info
-        platform = navigator.platform
-        user_agent = navigator.userAgent
-        os_name = 'Unknown OS'
-        if 'Win' in user_agent: os_name = 'Windows'
-        elif 'Mac' in user_agent: os_name = 'MacOS'
-        elif 'Linux' in user_agent: os_name = 'Linux'
-        elif 'Android' in user_agent: os_name = 'Android'
-        elif 'iOS' in user_agent: os_name = 'iOS'
-        
-        hud_os.textContent = f"SYS: {os_name} / {platform}"
-
-        # IP Data
-        try:
-            # Using ipwho.is which is more CORS friendly for client-side requests
-            response = await pyfetch("https://ipwho.is/")
-            if response.ok:
-                data = await response.json()
-                if data.get('success'):
-                    hud_ip.textContent = f"IP: {data.get('ip')}"
-                    hud_loc.textContent = f"LOC: {data.get('city')}, {data.get('country_code')}"
-                    hud_isp.textContent = f"ISP: {data.get('connection', {}).get('isp')}"
-                else:
-                    hud_ip.textContent = "IP: [LOOKUP FAILED]"
-            else:
-                hud_ip.textContent = f"IP: [HTTP {response.status}]"
-        except Exception as e:
-            # Show actual error for debugging if needed, or fallback
-            hud_ip.textContent = "IP: [CONNECTION ERROR]"
-            print(f"IP Fetch Error: {e}")
-
-    # Run the async function
-    asyncio.ensure_future(fetch_intel())
-  </script>
 </body>
 
 </html>
-```
