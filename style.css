@@ -559,6 +559,17 @@ nav a:hover::before {
   font-family: var(--font-subheading);
 }
 
+.project-highlights {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+}
+
+.project-highlights li {
+  margin-bottom: 0.35rem;
+}
+
 .project-link {
   display: inline-block;
   margin-top: 1rem;
