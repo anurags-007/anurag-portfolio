@@ -578,11 +578,10 @@ nav a:hover::before {
 
 /* Gallery */
 .gallery-grid {
-  display: flex;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  padding: 1rem 0;
-  scroll-snap-type: x mandatory;
+  padding: 1rem;
 }
 
 .gallery-item {

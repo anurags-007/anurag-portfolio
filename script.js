@@ -432,7 +432,7 @@ async function fetchVisitorIntel() {
 
   if (!hudParams.ip) return;
 
-  // 1. Detect System Info
+  // 1. Detailed System & Browser Info
   const platform = navigator.platform;
   const userAgent = navigator.userAgent;
   let osName = 'Unknown OS';
@@ -442,30 +442,88 @@ async function fetchVisitorIntel() {
   else if (userAgent.indexOf('Android') !== -1) osName = 'Android';
   else if (userAgent.indexOf('like Mac') !== -1) osName = 'iOS';
 
-  hudParams.os.textContent = `SYS: ${osName} / ${platform}`;
+  const ram = navigator.deviceMemory ? `${navigator.deviceMemory}GB RAM` : '';
+  const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : '';
+  const sysDetails = [osName, ram, cores].filter(Boolean).join(' | ');
 
-  // 2. Fetch Network Intel
+  hudParams.os.textContent = `SYS: ${sysDetails}`;
+
+  // 2. Fetch IP and Basic Network Intel
+  let userIp = '[UNKNOWN]';
+  let ispName = '[UNKNOWN]';
   try {
-    const response = await fetch('https://ipwho.is/');
-    const data = await response.json();
+    // Using a more reliable CORS-friendly fallback API for IP
+    const ipResponse = await fetch('http://ip-api.com/json/');
+    const ipData = await ipResponse.json();
+    userIp = ipData.query;
+    typeText(hudParams.ip, `IP:  ${userIp}`);
 
-    if (data.success) {
-      // Typing effect for data
-      typeText(hudParams.ip, `IP:  ${data.ip}`);
-      setTimeout(() => typeText(hudParams.loc, `LOC: ${data.city}, ${data.country_code}`), 500);
-      setTimeout(() => typeText(hudParams.isp, `ISP: ${data.connection.isp}`), 1000);
+    ispName = ipData.org || ipData.isp || 'Unknown ISP';
+    setTimeout(() => typeText(hudParams.isp, `ISP: ${ispName}`), 1000);
 
-      // Add success state to HUD
-      hudParams.container.style.borderColor = 'var(--text-secondary)';
-    } else {
-      hudParams.ip.textContent = 'IP:  [TRACKING DISABLED]';
+    // 3. High-Accuracy IP Geolocation (Silent, No Prompt)
+    try {
+      if (userIp !== '[UNKNOWN]') {
+        const geoResponse = await fetch(`http://ip-api.com/json/${userIp}`);
+        const data = await geoResponse.json();
+
+        if (data.status === 'success') {
+          setTimeout(() => {
+            typeText(hudParams.loc, `LOC: ${data.city}, ${data.regionName} [CLICK TO ENHANCE]`);
+            hudParams.loc.style.cursor = 'pointer';
+            hudParams.loc.title = 'Click to run a high-accuracy GPS/Tower scan';
+          }, 500);
+          hudParams.container.style.borderColor = 'var(--text-secondary)'; // Cyan success
+        } else {
+          hudParams.loc.textContent = 'LOC: [LOCATION HIDDEN]';
+        }
+      } else {
+        hudParams.loc.textContent = 'LOC: [GEO-TRACKING UNAVAILABLE]';
+      }
+    } catch (error) {
+      console.error('Geo Intel failure:', error);
+      hudParams.loc.textContent = 'LOC: [LOCATION LOST]';
     }
+
+    // 4. Interactive High-Accuracy Scan (Requires Click & Consent)
+    hudParams.loc.addEventListener('click', () => {
+      if (!("geolocation" in navigator)) {
+        hudParams.loc.textContent = 'LOC: [GPS UNAVAILABLE ON DEVICE]';
+        return;
+      }
+
+      hudParams.loc.textContent = 'LOC: [ACQUIRING SATELLITE LOCK...]';
+      hudParams.loc.style.cursor = 'default';
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const accuracy = position.coords.accuracy;
+
+          try {
+            const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+            const geoData = await geoResponse.json();
+            let accurateLoc = geoData.address.suburb || geoData.address.neighbourhood || geoData.address.city || geoData.address.town || geoData.address.county;
+            let stateAndCountry = `${geoData.address.state || ''}, ${geoData.address.country || ''}`;
+
+            typeText(hudParams.loc, `LOC: ${accurateLoc}, ${stateAndCountry} (Acc: ${Math.round(accuracy)}m)`);
+            hudParams.container.style.borderColor = 'var(--accent-secondary)'; // Gold success
+          } catch (e) {
+            typeText(hudParams.loc, `LOC: ${lat.toFixed(4)}, ${lon.toFixed(4)}`);
+          }
+        },
+        (error) => {
+          hudParams.loc.textContent = 'LOC: [ACCESS DENIED BY TARGET]';
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    });
   } catch (error) {
-    console.error('Intel failure:', error);
-    hudParams.ip.textContent = 'IP:  [CONNECTION LOST]';
+    console.error('IP Intel failure:', error);
+    hudParams.ip.textContent = 'IP:  [CONNECTION LOST/BLOCKED]';
   }
 }
-
 // Typing helper for HUD
 function typeText(element, text, index = 0) {
   if (index === 0) element.textContent = '';
