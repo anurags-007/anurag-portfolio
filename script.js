@@ -136,6 +136,31 @@ function navigateLightbox(direction, event) {
   }
 }
 
+// Swipe gesture support for lightbox
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left -> Next image
+        navigateLightbox(1);
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right -> Prev image
+        navigateLightbox(-1);
+      }
+    }, { passive: true });
+  }
+});
+
 // Gallery scroll functionality with event delegation
 const galleryContainer = document.querySelector('.gallery-container');
 if (galleryContainer) {
@@ -241,7 +266,9 @@ const navLinks = document.querySelectorAll('.nav-list li a');
 const sections = [
   document.getElementById('about'),
   document.getElementById('skills'),
+  document.getElementById('terminal-section'),
   document.getElementById('projects'),
+  document.getElementById('experience'),
   document.getElementById('certifications'),
   document.getElementById('contact')
 ];
@@ -292,17 +319,36 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Add hover effect to project cards
-document.querySelectorAll('.project').forEach(project => {
-  project.addEventListener('mouseenter', function () {
-    this.style.transform = 'translateY(-5px)';
-    this.style.boxShadow = '0 10px 30px rgba(124, 77, 255, 0.3)';
-  });
+// Projects filtering logic
+document.addEventListener('DOMContentLoaded', () => {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
 
-  project.addEventListener('mouseleave', function () {
-    this.style.transform = 'translateY(0)';
-    this.style.boxShadow = '0 2px 16px rgba(0,0,0,0.10)';
-  });
+  if (filterButtons.length > 0 && projectCards.length > 0) {
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filterValue = button.getAttribute('data-filter');
+
+        projectCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filterValue === 'all' || category === filterValue) {
+            card.classList.remove('hide');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 50);
+          } else {
+            card.classList.add('hide');
+          }
+        });
+      });
+    });
+  }
 });
 
 // Add loading animation to images
@@ -536,4 +582,174 @@ function typeText(element, text, index = 0) {
 // Initialize systems
 document.addEventListener('DOMContentLoaded', () => {
   fetchVisitorIntel();
+
+  // Interactive Cyber Terminal Engine
+  const terminalInput = document.getElementById('terminal-input');
+  const terminalOutput = document.getElementById('terminal-output');
+  const terminalContainer = document.querySelector('.terminal-container');
+
+  if (terminalInput && terminalOutput) {
+    // Focus terminal input on container click
+    if (terminalContainer) {
+      terminalContainer.addEventListener('click', () => {
+        terminalInput.focus();
+      });
+    }
+
+    // Auto-focus terminal when it enters view
+    if ('IntersectionObserver' in window) {
+      const focusObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            terminalInput.focus();
+          }
+        });
+      }, { threshold: 0.3 });
+      focusObserver.observe(terminalInput);
+    }
+
+    let commandHistory = [];
+    let historyIndex = -1;
+
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        if (command) {
+          commandHistory.push(command);
+          historyIndex = commandHistory.length;
+          processCommand(command);
+        }
+        terminalInput.value = '';
+      } else if (e.key === 'ArrowUp') {
+        if (historyIndex > 0) {
+          historyIndex--;
+          terminalInput.value = commandHistory[historyIndex];
+        }
+        e.preventDefault();
+      } else if (e.key === 'ArrowDown') {
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          terminalInput.value = commandHistory[historyIndex];
+        } else {
+          historyIndex = commandHistory.length;
+          terminalInput.value = '';
+        }
+        e.preventDefault();
+      }
+    });
+
+    function printLine(text, type = '') {
+      const p = document.createElement('div');
+      p.className = `terminal-line ${type}`;
+      p.innerHTML = text;
+      terminalOutput.appendChild(p);
+      
+      // Keep scroll at bottom
+      setTimeout(() => {
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }, 20);
+    }
+
+    function processCommand(cmd) {
+      const cleanCmd = cmd.toLowerCase().trim();
+      printLine(`guest@anurag-sec:~$ ${cmd}`, 'cmd-msg');
+
+      if (cleanCmd === 'help') {
+        printLine('Available mainframe commands:', 'system-msg');
+        printLine('  <span style="color: var(--accent-secondary)">help</span>      - Display this command dictionary.');
+        printLine('  <span style="color: var(--accent-secondary)">about</span>     - Output biography of Anurag Kumar Singh.');
+        printLine('  <span style="color: var(--accent-secondary)">skills</span>    - Retrieve core competencies and tooling.');
+        printLine('  <span style="color: var(--accent-secondary)">projects</span>  - Review deployed projects & descriptions.');
+        printLine('  <span style="color: var(--accent-secondary)">matrix</span>    - Initialize digital rain matrix override.');
+        printLine('  <span style="color: var(--accent-secondary)">hack</span>      - Run automated security penetration audit.');
+        printLine('  <span style="color: var(--accent-secondary)">clear</span>     - Clear terminal buffer.');
+      } else if (cleanCmd === 'clear') {
+        terminalOutput.innerHTML = '';
+      } else if (cleanCmd === 'about') {
+        printLine('<b>Anurag Kumar Singh</b> - SOC Analyst | Security Analyst | Entry-Level Cybersecurity.', 'success-msg');
+        printLine('Pursuing B.Tech in CSE at Institute of Technology and Management, Gorakhpur.', 'system-msg');
+        printLine('Skilled in OSINT, network analysis, threat detection, and incident response, with 100+ TryHackMe labs.', 'system-msg');
+      } else if (cleanCmd === 'skills') {
+        printLine('SYS_TOOLS_DECRYPTED:', 'success-msg');
+        printLine('  - <b>Security Tools</b>: Nmap, Wireshark, Burp Suite, Metasploit, Nessus, Splunk (SIEM), OSINT Tools', 'system-msg');
+        printLine('  - <b>Networking</b>: TCP/IP, OSI Model, Subnetting, DNS, DHCP, VPN, NAT, Firewalls, IDS/IPS', 'system-msg');
+        printLine('  - <b>Security Concepts</b>: Vulnerability Assessment, Penetration Testing, SIEM, Log Analysis, Threat Detection', 'system-msg');
+        printLine('  - <b>Programming</b>: Python, C, Bash', 'system-msg');
+        printLine('  - <b>Web & Cloud</b>: HTML/CSS, JavaScript, AWS (Basics), Virtualization, Git', 'system-msg');
+        printLine('  - <b>Languages</b>: Hindi (Native), English (Professional)', 'system-msg');
+      } else if (cleanCmd === 'projects') {
+        printLine('PROJECT_MAINBOARD:', 'success-msg');
+        printLine('  1. <b>Port Scanner</b> - High-performance concurrent TCP port scanner in Python (Socket, Multithreading, Rich).', 'system-msg');
+        printLine('  2. <b>Secure Home Network Design</b> - Multi-host design in Cisco Packet Tracer with routing, switching, subnetting.', 'system-msg');
+        printLine('  3. <b>TryHackMe Labs</b> - 100+ labs covering Linux ops, privilege escalation, and active threat enumeration.', 'system-msg');
+      } else if (cleanCmd === 'matrix') {
+        startMatrixRain();
+      } else if (cleanCmd === 'hack') {
+        simulateHack();
+      } else {
+        printLine(`Error: Command '${cmd}' not recognized. Type 'help' for options.`, 'error-msg');
+      }
+    }
+
+    function startMatrixRain() {
+      printLine('INITIALIZING OVERRIDE PROTOCOL [MATRIX]...', 'success-msg');
+      
+      // Temporarily store original content
+      const originalContent = terminalOutput.innerHTML;
+      terminalOutput.innerHTML = ''; 
+      
+      const matrixCont = document.createElement('div');
+      matrixCont.className = 'matrix-container';
+      
+      const columnsCount = 20;
+      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@%&+';
+      
+      for (let i = 0; i < columnsCount; i++) {
+        const col = document.createElement('div');
+        col.className = 'matrix-col';
+        col.style.animationDelay = `${Math.random() * 2}s`;
+        col.style.animationDuration = `${1 + Math.random() * 1.5}s`;
+        
+        const charCount = 8 + Math.floor(Math.random() * 8);
+        for (let j = 0; j < charCount; j++) {
+          const span = document.createElement('span');
+          span.className = 'matrix-char';
+          span.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+          span.style.animationDelay = `${Math.random() * 1.5}s`;
+          col.appendChild(span);
+        }
+        matrixCont.appendChild(col);
+      }
+      
+      terminalOutput.appendChild(matrixCont);
+      
+      // Stop matrix after 6 seconds and restore original screen
+      setTimeout(() => {
+        terminalOutput.innerHTML = originalContent;
+        printLine('MATRIX STREAM SHUTDOWN. SYSTEM RESTORED.', 'success-msg');
+        printLine("Type 'help' to review directory listings.", 'system-msg');
+      }, 6000);
+    }
+
+    function simulateHack() {
+      printLine('LAUNCHING REMOTE SYSTEM SECURITY AUDIT...', 'error-msg');
+      
+      let steps = [
+        { text: 'Scanning local interfaces and ports...', delay: 500, type: 'system-msg' },
+        { text: 'Target identified: 127.0.0.1 (Loopback mainframe)', delay: 1200, type: 'system-msg' },
+        { text: 'Auditing security policies and firewall settings...', delay: 2000, type: 'system-msg' },
+        { text: 'Checking open ports: [80: HTTP], [443: HTTPS], [8080: WEB_DEV]', delay: 2800, type: 'system-msg' },
+        { text: 'Attempting token bypass on admin console...', delay: 3600, type: 'cmd-msg' },
+        { text: 'SUCCESS: Credentials decrypted. Session key acquired.', delay: 4500, type: 'success-msg' },
+        { text: 'Bypassing access logs (covering tracks)...', delay: 5200, type: 'cmd-msg' },
+        { text: 'ACCESS GRANTED. Mainframe audit complete. 🛡️ System secure.', delay: 6000, type: 'success-msg' }
+      ];
+      
+      steps.forEach(step => {
+        setTimeout(() => {
+          printLine(step.text, step.type);
+        }, step.delay);
+      });
+    }
+  }
 });
